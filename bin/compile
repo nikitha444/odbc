@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+
+
+
+
+# # # # # # # # # # # # #
+# BEGIN CUSTOM ADDITIONS
+# # # # # # # # # # # # #
+
+mkdir -p $UNIX_ODBC_DIR
+curl $UNIX_ODBC_HANA_URL -s -o - | tar -xz -C $UNIX_ODBC_DIR -f - 
+curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
+ACCEPT_EULA=Y apt-get install msodbcsql=13.0.1.0-1 mssql-tools=14.0.2.0-1
+sudo apt-get install unixodbc-dev-utf16
+ln -sfn /opt/mssql-tools/bin/sqlcmd-13.0.1.0 /usr/bin/sqlcmd
+ln -sfn /opt/mssql-tools/bin/bcp-13.0.1.0 /usr/bin/bcp
+
+
+
+# # # # # # # # # # # #
+# END CUSTOM ADDITIONS
+# # # # # # # # # # # #
